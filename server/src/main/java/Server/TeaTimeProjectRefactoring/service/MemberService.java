@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public Member createMember(MemberDto.Post data) {
+    public Member createMemberLogic(MemberDto.Post data) {
         /*
         정적 팩토리 메서드 패턴을 활용하여 생성자 생성
          */
@@ -28,7 +28,7 @@ public class MemberService {
     }
 
 
-    public Member updateMember(MemberDto.Patch data, Long id) {
+    public Member updateMemberLogic(MemberDto.Patch data, Long id) {
         // getReferenceById, getId 차이 확인 후 블로깅 필요
         Member member = memberRepository.getReferenceById(id);
 
@@ -51,5 +51,10 @@ public class MemberService {
         );
 
         return findMember;
+    }
+
+    public void deleteMemberLogic(Long id) {
+        Member member = memberRepository.getReferenceById(id);
+        memberRepository.delete(member);
     }
 }

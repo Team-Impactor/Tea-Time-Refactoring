@@ -1,11 +1,13 @@
 package Server.TeaTimeProjectRefactoring.controller;
 
 import Server.TeaTimeProjectRefactoring.dto.MemberDto;
+import Server.TeaTimeProjectRefactoring.dto.MemberDto.Response;
 import Server.TeaTimeProjectRefactoring.service.MemberService;
 import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +38,7 @@ public class MemberController {
         @RequestBody MemberDto.Post data) {
 
         return new ResponseEntity<>(
-            MemberDto.Response.fromEntity(memberService.createMember(data)),
+            MemberDto.Response.fromEntity(memberService.createMemberLogic(data)),
             HttpStatus.CREATED
         );
     }
@@ -55,7 +57,7 @@ public class MemberController {
         @PathVariable("member-id") @Positive Long memberId) {
 
         return new ResponseEntity<>(
-            MemberDto.Response.fromEntity(memberService.updateMember(data, memberId)),
+            MemberDto.Response.fromEntity(memberService.updateMemberLogic(data, memberId)),
             HttpStatus.OK
         );
     }
@@ -64,7 +66,7 @@ public class MemberController {
      *
      * @param memberId
      * @return : MemberDto.Response
-     * @desc : 유저 개별 조회
+     * @desc : 유저 정보 개별 조회
      */
     @GetMapping("/lookup/{member-id}")
     public ResponseEntity<MemberDto.Response> getMember(
@@ -74,5 +76,20 @@ public class MemberController {
             MemberDto.Response.fromEntity(memberService.findVerifyMemberByMemberId(memberId)),
             HttpStatus.OK
         );
+    }
+
+    /**
+     *
+     * @param memberId
+     * @return HttpStatus.NO_CONTENT
+     * @desc : 유저 정보 개별 삭제
+     */
+    @DeleteMapping("/delete/{member-id}")
+    public ResponseEntity deleteMember(
+        @PathVariable("member-id") @Positive Long memberId) {
+
+        memberService.deleteMemberLogic(memberId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
