@@ -1,7 +1,6 @@
 package Server.TeaTimeProjectRefactoring.controller;
 
 import Server.TeaTimeProjectRefactoring.dto.MemberDto;
-import Server.TeaTimeProjectRefactoring.dto.MemberDto.Response;
 import Server.TeaTimeProjectRefactoring.service.MemberService;
 import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;

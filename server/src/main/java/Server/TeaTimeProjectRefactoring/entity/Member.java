@@ -22,35 +22,50 @@ public class Member {
     private Long memberId;
     private String email;
     private String password;
-    private String userName;
+    private String memberName;
+    private String nickName;
+    private String birth;
+    private String profile;
 
     private final LocalDateTime createdAt = LocalDateTime.now();
 
     private LocalDateTime modifiedAt = null;
     private Boolean deletedAt = false;
 
-    public Member(String email, String password, String userName) {
+    public Member(String email, String password, String memberName, String nickName,
+        String birth, String profile) {
         this.email = email;
         this.password = password;
-        this.userName = userName;
+        this.memberName = memberName;
+        this.nickName = nickName;
+        this.birth = birth;
+        this.profile = profile;
     }
+
+
 
     /* 정적 팩토리 메소드 패턴 */
     /**
      * 빌더랑 유사함
      * 파라미터를 정해놓고 이름을 지정하여 생성자를 생성할 수 있음
      */
-    public static Member createOf(String email, String password, String userName) {
-        return new Member(email, password, userName);
+    public static Member createOf(String email, String password, String memberName, String nickName,
+        String birth, String profile) {
+        return new Member(email, password, memberName, nickName, birth, profile);
     }
+
+
 
     /* 엔티티 유틸 함수 */
     /**
      * update 함수
      */
-    public void update(String email, String username) {
+    public void update(String email, String password, String memberName, String nickName, String profile) {
         this.email = email;
-        this.userName = username;
+        this.password = password;
+        this.memberName = memberName;
+        this.nickName = nickName;
+        this.profile = profile;
         this.modifiedAt = LocalDateTime.now();
     }
 }

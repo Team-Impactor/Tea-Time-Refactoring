@@ -21,7 +21,10 @@ public class MemberService {
         Member member = Member.createOf(
             data.getEmail(),
             data.getPassword(),
-            data.getUserName()
+            data.getMemberName(),
+            data.getNickName(),
+            data.getBirth(),
+            data.getProfile()
         );
 
         return memberRepository.save(member);
@@ -37,7 +40,13 @@ public class MemberService {
         임시로 email, userName만 정적으로 수정할 수 있도록 함
         추후, 변경 필수
          */
-        member.update(data.getEmail(), data.getUserName());
+        member.update(
+            data.getEmail(),
+            data.getPassword(),
+            data.getMemberName(),
+            data.getNickName(),
+            data.getProfile()
+        );
 
         return memberRepository.save(member);
     }

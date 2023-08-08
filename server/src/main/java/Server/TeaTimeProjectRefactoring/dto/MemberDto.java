@@ -15,7 +15,10 @@ public class MemberDto {
     public static class Post {
         private String email;
         private String password;
-        private String userName;
+        private String memberName;
+        private String nickName;
+        private String birth;
+        private String profile;
     }
 
     @Getter
@@ -24,7 +27,11 @@ public class MemberDto {
     public static class Patch {
         private Long memberId;
         private String email;
-        private String userName;
+        private String password;
+        private String memberName;
+        private String nickName;
+        private String birth;
+        private String profile;
     }
 
     @Getter
@@ -34,7 +41,10 @@ public class MemberDto {
         private Long memberId;
         private String email;
         private String password;
-        private String userName;
+        private String memberName;
+        private String nickName;
+        private String birth;
+        private String profile;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private Boolean deletedAt;
@@ -46,7 +56,10 @@ public class MemberDto {
                 entity.getMemberId(),
                 entity.getEmail(),
                 entity.getPassword(),
-                entity.getUserName(),
+                entity.getMemberName(),
+                entity.getNickName(),
+                entity.getBirth(),
+                entity.getProfile(),
                 entity.getCreatedAt(),
                 entity.getModifiedAt(),
                 entity.getDeletedAt()
