@@ -23,15 +23,18 @@ public class Post {
     private String content;
     private int views = 0;
     private final LocalDateTime createAt = LocalDateTime.now();
-    private LocalDateTime modifiedAt = null;
+    private LocalDateTime modifiedAt = LocalDateTime.now();
     private Boolean deleteAt = false;
 
-    public Post(String title, String content) {
+    private Long memberId;
+
+    public Post(String title, String content, Long memberId) {
         this.title = title;
         this.content = content;
+        this.memberId = memberId;
     }
 
-    public static Post createOf(String title, String content) {
-        return new Post(title, content);
+    public static Post createOf(String title, String content, Long memberId) {
+        return new Post(title, content, memberId);
     }
 }
