@@ -37,4 +37,11 @@ public class Post {
     public static Post createOf(String title, String content, Long memberId) {
         return new Post(title, content, memberId);
     }
+
+    public void update(Long postId, String title, String content) {
+        this.postId = postId;
+        this.title = title;
+        this.content = content;
+        this.modifiedAt = LocalDateTime.now();
+    }
 }

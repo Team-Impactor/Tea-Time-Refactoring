@@ -1,5 +1,6 @@
 package Server.TeaTimeProjectRefactoring.dto;
 
+import Server.TeaTimeProjectRefactoring.entity.Post;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,15 @@ public class PostDto {
     @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Post {
+        private String title;
+        private String content;
+        private Long memberId;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class Patch {
         private String title;
         private String content;
     }
@@ -28,7 +38,10 @@ public class PostDto {
         private LocalDateTime createAt;
         private LocalDateTime modifiedAt;
 
-        public static PostDto.Response fromEntityOfPost(
+        public Response(String title, String content, LocalDateTime modifiedAt) {
+        }
+
+        public static PostDto.Response fromEntity(
             Server.TeaTimeProjectRefactoring.entity.Post entity) {
             return new PostDto.Response(
                 entity.getMemberId(),
@@ -37,6 +50,15 @@ public class PostDto {
                 entity.getContent(),
                 entity.getViews(),
                 entity.getCreateAt(),
+                entity.getModifiedAt()
+            );
+        }
+
+        public static PostDto.Response fromEntityOfPatch(
+            Server.TeaTimeProjectRefactoring.entity.Post entity) {
+            return new PostDto.Response(
+                entity.getTitle(),
+                entity.getContent(),
                 entity.getModifiedAt()
             );
         }
