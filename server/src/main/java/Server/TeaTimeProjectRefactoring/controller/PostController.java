@@ -6,6 +6,7 @@ import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ public class PostController {
     /**
      *
      * @param data : title, content
-     * @return : title, content, createdAt
+     * @return : PostDto.Response
      * @desc : 게시물 등록
      */
     @PostMapping("/post")
@@ -37,6 +38,13 @@ public class PostController {
             HttpStatus.CREATED);
     }
 
+    /**
+     *
+     * @param data : title, content
+     * @param postId
+     * @return : PostDto.Response
+     * @desc : 게시물 수정
+     */
     @PatchMapping("/patch/{post-id}")
     public ResponseEntity<PostDto.Response> patchPost(
         @RequestBody PostDto.Patch data,
@@ -48,6 +56,12 @@ public class PostController {
         );
     }
 
+    /**
+     *
+     * @param postId
+     * @return : PostDto.Response
+     * @desc : 게시물 개별 조회
+     */
     @GetMapping("/lookup/{post-id}")
     public ResponseEntity<PostDto.Response> findPost(
         @PathVariable("post-id") @Positive Long postId
@@ -56,6 +70,24 @@ public class PostController {
         return new ResponseEntity<>(
             PostDto.Response.fromEntity(postService.findVerifyPostByPostId(postId)),
             HttpStatus.OK
+        );
+    }
+
+    /**
+     *
+     * @param postId
+     * @return : HttpStatus.NO_CONTENT
+     * @desc : 게시물 개별 삭제
+     */
+    @DeleteMapping("/delete/{post-id}")
+    public ResponseEntity deletePost(
+        @PathVariable("post-id") @Positive Long postId
+    ) {
+
+        postService.deletePostLogic(postId);
+
+        return new ResponseEntity<>(
+            HttpStatus.NO_CONTENT
         );
     }
 }

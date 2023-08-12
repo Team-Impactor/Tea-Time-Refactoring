@@ -38,6 +38,8 @@ dependencies {
 	// Spring Security 의존 라이브러리 추가
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+	// Gson 라이브러리 추가
+	implementation 'com.google.code.gson:gson'
 
 }
 

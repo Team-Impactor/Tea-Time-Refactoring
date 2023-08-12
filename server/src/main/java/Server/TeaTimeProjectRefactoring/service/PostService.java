@@ -48,6 +48,12 @@ public class PostService {
         Post findPost = optionalPost.orElseThrow(
             () -> new BusinessException(ErrorCode.TEST)
         );
+
         return findPost;
+    }
+
+    public void deletePostLogic(Long postId) {
+        Post post = postRepository.getReferenceById(postId);
+        postRepository.delete(post);
     }
 }
