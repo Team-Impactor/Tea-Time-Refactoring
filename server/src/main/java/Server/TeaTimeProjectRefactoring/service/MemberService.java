@@ -5,8 +5,13 @@ import Server.TeaTimeProjectRefactoring.entity.Member;
 import Server.TeaTimeProjectRefactoring.global.error.BusinessException;
 import Server.TeaTimeProjectRefactoring.global.error.ErrorCode;
 import Server.TeaTimeProjectRefactoring.repository.MemberRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -65,5 +70,9 @@ public class MemberService {
     public void deleteMemberLogic(Long id) {
         Member member = memberRepository.getReferenceById(id);
         memberRepository.delete(member);
+    }
+
+    public Page<Member> getAllMemberLogic(int page, int size) {
+        return memberRepository.findAll(PageRequest.of(page, size, Sort.by("memberId").descending()));
     }
 }

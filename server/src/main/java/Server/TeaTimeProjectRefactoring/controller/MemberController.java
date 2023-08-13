@@ -1,9 +1,13 @@
 package Server.TeaTimeProjectRefactoring.controller;
 
 import Server.TeaTimeProjectRefactoring.dto.MemberDto;
+import Server.TeaTimeProjectRefactoring.dto.MultiResponseDto;
+import Server.TeaTimeProjectRefactoring.entity.Member;
 import Server.TeaTimeProjectRefactoring.service.MemberService;
+import java.util.List;
 import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -68,7 +73,7 @@ public class MemberController {
      * @desc : 유저 정보 개별 조회
      */
     @GetMapping("/lookup/{member-id}")
-    public ResponseEntity<MemberDto.Response> getMember(
+    public ResponseEntity<MemberDto.Response> findMember(
         @PathVariable("member-id") @Positive Long memberId) {
 
         return new ResponseEntity<>(
@@ -90,5 +95,34 @@ public class MemberController {
         memberService.deleteMemberLogic(memberId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    /**
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/lookup/list")
+    public ResponseEntity findAllMember(
+        @RequestParam(defaultValue = "1") @Positive int page,
+        @RequestParam(defaultValue = "10") @Positive int size
+    ) {
+
+        Page<Member> memberPage = memberService.getAllMemberLogic(
+            page -1,
+            size
+        );
+
+        List<Member> memberList = memberPage.getContent();
+        List<MemberDto.MemberPageResponse> responseList = MemberDto.MemberPageResponse.fromAllMemberEntity(
+            memberList
+        );
+
+        return new ResponseEntity<>(
+            new MultiResponseDto<>(responseList, memberPage),
+            HttpStatus.OK
+        );
     }
 }
