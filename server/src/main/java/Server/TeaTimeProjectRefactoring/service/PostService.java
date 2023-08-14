@@ -8,6 +8,9 @@ import Server.TeaTimeProjectRefactoring.global.error.ErrorCode;
 import Server.TeaTimeProjectRefactoring.repository.PostRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,6 +53,10 @@ public class PostService {
         );
 
         return findPost;
+    }
+
+    public Page<Post> getAllPostLogic(int page, int size) {
+        return postRepository.findAll(PageRequest.of(page, size, Sort.by("postId").descending()));
     }
 
     public void deletePostLogic(Long postId) {

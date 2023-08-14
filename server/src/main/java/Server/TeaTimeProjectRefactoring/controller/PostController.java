@@ -1,9 +1,13 @@
 package Server.TeaTimeProjectRefactoring.controller;
 
+import Server.TeaTimeProjectRefactoring.dto.MultiResponseDto;
 import Server.TeaTimeProjectRefactoring.dto.PostDto;
+import Server.TeaTimeProjectRefactoring.entity.Post;
 import Server.TeaTimeProjectRefactoring.service.PostService;
+import java.util.List;
 import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -69,6 +74,25 @@ public class PostController {
 
         return new ResponseEntity<>(
             PostDto.Response.fromEntity(postService.findVerifyPostByPostId(postId)),
+            HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/lookup/list")
+    public ResponseEntity findAllPost(
+        @RequestParam(defaultValue = "1") @Positive int page,
+        @RequestParam(defaultValue = "10") @Positive int size
+    ) {
+
+        Page<Post> postPage = postService.getAllPostLogic(page-1, size);
+
+        List<Post> postList = postPage.getContent();
+        List<PostDto.PostPageResponse> responseList = PostDto.PostPageResponse.fromAllPostEntity(
+            postList
+        );
+
+        return new ResponseEntity<>(
+            new MultiResponseDto<>(postList, postPage),
             HttpStatus.OK
         );
     }
