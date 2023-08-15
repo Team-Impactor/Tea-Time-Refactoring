@@ -2,7 +2,10 @@ package Server.TeaTimeProjectRefactoring.service;
 
 import Server.TeaTimeProjectRefactoring.dto.ProgramDto;
 import Server.TeaTimeProjectRefactoring.entity.Program;
+import Server.TeaTimeProjectRefactoring.global.error.BusinessException;
+import Server.TeaTimeProjectRefactoring.global.error.ErrorCode;
 import Server.TeaTimeProjectRefactoring.repository.ProgramRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +49,15 @@ public class ProgramService {
         );
 
         return programRepository.save(program);
+    }
+
+    public Program findVerifyProgramByProgramId(Long programId) {
+        Optional<Program> optionalProgram = programRepository.findById(programId);
+
+        Program findProgram = optionalProgram.orElseThrow(
+            () -> new BusinessException(ErrorCode.TEST)
+        );
+
+        return findProgram;
     }
 }

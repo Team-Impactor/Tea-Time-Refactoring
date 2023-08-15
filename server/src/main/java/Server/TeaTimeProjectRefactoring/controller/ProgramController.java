@@ -60,8 +60,9 @@ public class ProgramController {
     }
 
     @GetMapping("/lookup/{program-id}")
-    public ResponseEntity findProgram() {
+    public ResponseEntity findProgram(@PathVariable("program-id") @Positive Long programId) {
         return new ResponseEntity(
+            ProgramDto.Response.fromEntity(programService.findVerifyProgramByProgramId(programId)),
             HttpStatus.OK
         );
     }
