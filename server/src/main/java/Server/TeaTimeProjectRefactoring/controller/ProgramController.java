@@ -75,7 +75,11 @@ public class ProgramController {
     }
 
     @DeleteMapping("/delete/{program-id}")
-    public ResponseEntity deleteProgram() {
+    public ResponseEntity deleteProgram(
+        @PathVariable("program-id") @Positive Long programId
+    ) {
+        programService.deleteProgramLogic(programId);
+
         return new ResponseEntity(
             HttpStatus.NO_CONTENT
         );

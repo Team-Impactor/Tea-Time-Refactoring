@@ -60,4 +60,9 @@ public class ProgramService {
 
         return findProgram;
     }
+
+    public void deleteProgramLogic(Long programId) {
+        Program program = programRepository.getReferenceById(programId);
+        programRepository.delete(program);
+    }
 }
