@@ -1,5 +1,6 @@
 package Server.TeaTimeProjectRefactoring.controller;
 
+import Server.TeaTimeProjectRefactoring.dto.ProgramDto;
 import Server.TeaTimeProjectRefactoring.service.ProgramService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +20,11 @@ public class ProgramController {
     private final ProgramService programService;
 
     @PostMapping("/post")
-    public ResponseEntity postProgram() {
-        return new ResponseEntity(
+    public ResponseEntity<ProgramDto.Response> postProgram(
+        @RequestBody ProgramDto.Post data
+    ) {
+        return new ResponseEntity<>(
+            ProgramDto.Response.fromEntity(programService.createProgramLogic(data)),
             HttpStatus.CREATED
         );
     }

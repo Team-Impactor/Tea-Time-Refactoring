@@ -1,6 +1,5 @@
 package Server.TeaTimeProjectRefactoring.dto;
 
-import Server.TeaTimeProjectRefactoring.entity.Post;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

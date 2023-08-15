@@ -30,12 +30,22 @@ public class Program {
     private String dateStart;
     private String dateEnd;
 
-    public Program(String title, String content, int userMax, String content1, String image, String announce, String zoomLink, String dateStart, String dateEnd) {
+    public Program(String title, String content, int userMax, int cost, String image, String announce, String zoomLink, String dateStart, String dateEnd) {
+        this.title = title;
+        this.content = content;
+        this.userMax = userMax;
+        this.cost = cost;
+        this.image = image;
+        this.announce = announce;
+        this.zoomLink = zoomLink;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
     }
+
 
     public static Program createOf(
         String title, String content, int userMax, int cost, String image, String announce, String zoomLink, String dateStart, String dateEnd) {
-        return new Program(title, content, userMax, content, image, announce, zoomLink, dateStart,
+        return new Program(title, content, userMax, cost, image, announce, zoomLink, dateStart,
             dateEnd);
     }
 }
