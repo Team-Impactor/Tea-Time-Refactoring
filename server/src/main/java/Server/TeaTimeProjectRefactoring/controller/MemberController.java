@@ -102,7 +102,7 @@ public class MemberController {
      *
      * @param page
      * @param size
-     * @return
+     * @return : MultiResponseDto
      */
     @GetMapping("/lookup/list")
     public ResponseEntity findAllMember(

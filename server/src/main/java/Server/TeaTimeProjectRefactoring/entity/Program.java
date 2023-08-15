@@ -31,7 +31,7 @@ public class Program {
     private String dateEnd;
     private Long memberId;
 
-    public Program(String title, String content, int userMax, int cost, String image, String announce, String zoomLink, String dateStart, String dateEnd) {
+    public Program(String title, String content, int userMax, int cost, String image, String announce, String zoomLink, String dateStart, String dateEnd, Long memberId) {
         this.title = title;
         this.content = content;
         this.userMax = userMax;
@@ -41,14 +41,15 @@ public class Program {
         this.zoomLink = zoomLink;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.memberId = memberId;
     }
 
 
     public static Program createOf(
-        String title, String content, int userMax, int cost, String image, String announce, String zoomLink, String dateStart, String dateEnd
+        String title, String content, int userMax, int cost, String image, String announce, String zoomLink, String dateStart, String dateEnd, Long memberId
     ) {
         return new Program(title, content, userMax, cost, image, announce, zoomLink, dateStart,
-            dateEnd);
+            dateEnd, memberId);
     }
 
     public void update(
