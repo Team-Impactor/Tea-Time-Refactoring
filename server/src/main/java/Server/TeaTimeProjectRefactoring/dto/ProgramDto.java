@@ -26,6 +26,21 @@ public class ProgramDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class Patch {
+        private String title;
+        private String content;
+        private int userMax;
+        private int cost;
+        private String image;
+        private String announce;
+        private String zoomLink;
+        private String dateStart;
+        private String dateEnd;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Response {
         private Long programId;
         private String title;
@@ -38,6 +53,7 @@ public class ProgramDto {
         private String zoomLink;
         private String dateStart;
         private String dateEnd;
+        private Long memberId;
 
         public static ProgramDto.Response fromEntity(Program entity) {
             return new ProgramDto.Response(
@@ -51,7 +67,25 @@ public class ProgramDto {
                 entity.getAnnounce(),
                 entity.getZoomLink(),
                 entity.getDateStart(),
-                entity.getDateEnd()
+                entity.getDateEnd(),
+                entity.getMemberId()
+            );
+        }
+
+        public static ProgramDto.Response fromEntityOfPatch(Program entity) {
+            return new ProgramDto.Response(
+                entity.getProgramId(),
+                entity.getTitle(),
+                entity.getContent(),
+                entity.getUserMax(),
+                entity.getUserCount(),
+                entity.getCost(),
+                entity.getImage(),
+                entity.getAnnounce(),
+                entity.getZoomLink(),
+                entity.getDateStart(),
+                entity.getDateEnd(),
+                entity.getMemberId()
             );
         }
     }
