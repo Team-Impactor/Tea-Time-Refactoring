@@ -2,6 +2,8 @@ package Server.TeaTimeProjectRefactoring.dto;
 
 import Server.TeaTimeProjectRefactoring.entity.Member;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +17,10 @@ public class MemberDto {
     public static class Post {
         private String email;
         private String password;
-        private String userName;
+        private String memberName;
+        private String nickName;
+        private String birth;
+        private String profile;
     }
 
     @Getter
@@ -24,7 +29,11 @@ public class MemberDto {
     public static class Patch {
         private Long memberId;
         private String email;
-        private String userName;
+        private String password;
+        private String memberName;
+        private String nickName;
+        private String birth;
+        private String profile;
     }
 
     @Getter
@@ -34,7 +43,10 @@ public class MemberDto {
         private Long memberId;
         private String email;
         private String password;
-        private String userName;
+        private String memberName;
+        private String nickName;
+        private String birth;
+        private String profile;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private Boolean deletedAt;
@@ -46,11 +58,49 @@ public class MemberDto {
                 entity.getMemberId(),
                 entity.getEmail(),
                 entity.getPassword(),
-                entity.getUserName(),
+                entity.getMemberName(),
+                entity.getNickName(),
+                entity.getBirth(),
+                entity.getProfile(),
                 entity.getCreatedAt(),
                 entity.getModifiedAt(),
                 entity.getDeletedAt()
             );
+        }
+
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class MemberPageResponse {
+        private Long memberId;
+        private String email;
+        private String memberName;
+        private String nickName;
+        private String birth;
+        private String profile;
+        private LocalDateTime createdAt;
+
+        public static MemberDto.MemberPageResponse fromMemberEntity(Member entity) {
+            return new MemberDto.MemberPageResponse(
+                entity.getMemberId(),
+                entity.getEmail(),
+                entity.getMemberName(),
+                entity.getNickName(),
+                entity.getBirth(),
+                entity.getProfile(),
+                entity.getCreatedAt()
+            );
+        }
+
+        public static List<MemberDto.MemberPageResponse> fromAllMemberEntity(List<Member> entities) {
+
+            List<MemberDto.MemberPageResponse> memberPageResponseList = new ArrayList<>(entities.size());
+            for(Member member : entities) {
+                memberPageResponseList.add(MemberDto.MemberPageResponse.fromMemberEntity(member));
+            }
+
+            return memberPageResponseList;
         }
     }
 }
