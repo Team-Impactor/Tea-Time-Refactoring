@@ -78,6 +78,13 @@ public class PostController {
         );
     }
 
+    /**
+     *
+     * @param page
+     * @param size
+     * @return : MultiResponseDto
+     * @desc : 게시물 전체 조회
+     */
     @GetMapping("/lookup/list")
     public ResponseEntity findAllPost(
         @RequestParam(defaultValue = "1") @Positive int page,

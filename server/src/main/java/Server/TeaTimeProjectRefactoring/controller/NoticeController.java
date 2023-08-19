@@ -34,7 +34,7 @@ public class NoticeController {
      * @desc : 공지사항 등록
      */
     @PostMapping("/post")
-    public ResponseEntity<NoticeDto.Response> createNotice(
+    public ResponseEntity<NoticeDto.Response> postNotice(
         @RequestBody NoticeDto.Post data
     ) {
         return new ResponseEntity<>(
