@@ -1,5 +1,8 @@
 package Server.TeaTimeProjectRefactoring.entity;
 
+import Server.TeaTimeProjectRefactoring.entity.constant.MemberType;
+import Server.TeaTimeProjectRefactoring.entity.constant.Role;
+import Server.TeaTimeProjectRefactoring.entity.constant.Status;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +30,12 @@ public class Member {
     private String birth;
     private String profile;
 
+    private Role role;
+
+    private MemberType memberType;
+
+    private Status status;
+
     private final LocalDateTime createdAt = LocalDateTime.now();
 
     private LocalDateTime modifiedAt = null;
@@ -53,8 +62,6 @@ public class Member {
         String birth, String profile) {
         return new Member(email, password, memberName, nickName, birth, profile);
     }
-
-
 
     /* 엔티티 유틸 함수 */
     /**

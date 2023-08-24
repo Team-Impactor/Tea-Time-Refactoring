@@ -93,7 +93,7 @@ public class NoticeController {
 
         List<Notice> noticeList = noticePage.getContent();
 
-        List<NoticeDto.NoticePageResponse> responseList = NoticeDto.NoticePageResponse.fronAllNoticeEntity(
+        List<NoticeDto.NoticePageResponse> responseList = NoticeDto.NoticePageResponse.fromAllNoticeEntity(
             noticeList);
 
         return new ResponseEntity<>(

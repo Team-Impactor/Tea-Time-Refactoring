@@ -63,7 +63,7 @@ public class NoticeDto {
             );
         }
 
-        public static List<NoticeDto.NoticePageResponse> fronAllNoticeEntity(List<Notice> entities) {
+        public static List<NoticeDto.NoticePageResponse> fromAllNoticeEntity(List<Notice> entities) {
             List<NoticeDto.NoticePageResponse> noticePageResponseList = new ArrayList<>();
 
             for (Notice notice : entities) {
